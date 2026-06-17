@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Вход — IKSEM</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,200;14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --charcoal: #2B2B2B;
+            --ironclad: #565656;
+            --urban-fog: #848484;
+            --moonlit: #B3B3B3;
+            --cloud-veil: #E0E0E0;
+            --bg: #F5F5F5;
+            --white: #FFFFFF;
+            --font: 'Inter', -apple-system, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--charcoal);
+            font-weight: 300;
+            letter-spacing: 0.02em;
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        /* ===== КОНТЕЙНЕР ===== */
+        .auth-container {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 48px 40px 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 4px 24px rgba(43, 43, 43, 0.04);
+        }
+
+        /* ===== ЛОГОТИП ===== */
+        .logo {
+            display: block;
+            font-family: var(--font);
+            font-size: 28px;
+            font-weight: 200;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--charcoal);
+            text-align: center;
+            margin-bottom: 4px;
+        }
+        .logo span { font-weight: 700; letter-spacing: 0; }
+
+        .subtitle {
+            text-align: center;
+            font-size: 13px;
+            color: var(--urban-fog);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+        }
+
+        /* ===== ВКЛАДКИ ===== */
+        .tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--cloud-veil);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 0;
+            border: none;
+            background: transparent;
+            font-family: var(--font);
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--moonlit);
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: var(--charcoal);
+            border-bottom-color: var(--charcoal);
+        }
+
+        .tab-btn:hover {
+            color: var(--ironclad);
+        }
+
+        /* ===== ФОРМЫ ===== */
+        .form {
+            display: none;
+        }
+
+        .form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--urban-fog);
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--cloud-veil);
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 300;
+            font-family: var(--font);
+            background: var(--white);
+            color: var(--charcoal);
+            transition: border 0.2s;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: var(--charcoal);
+        }
+
+        .form-group input::placeholder {
+            color: var(--moonlit);
+            font-weight: 300;
+        }
+
+        /* ===== КНОПКА ===== */
+        .submit-btn {
+            width: 100%;
+            background: var(--charcoal);
+            color: var(--white);
+            border: none;
+            padding: 16px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: var(--font);
+            margin-top: 8px;
+        }
+
+        .submit-btn:hover {
+            background: var(--ironclad);
+        }
+
+        /* ===== СООБЩЕНИЕ ===== */
+        .message {
+            margin-top: 16px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            text-align: center;
+            display: none;
+        }
+
+        .message.error {
+            background: #fef2f2;
+            color: #991b1b;
+            display: block;
+            border: 1px solid #fecaca;
+        }
+
+        .message.success {
+            background: #f0fdf4;
+            color: #166534;
+            display: block;
+            border: 1px solid #bbf7d0;
+        }
+
+        /* ===== ССЫЛКА НА ГЛАВНУЮ ===== */
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--urban-fog);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--charcoal);
+        }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 32px 24px 24px;
+            }
+            .logo {
+                font-size: 24px;
+                letter-spacing: 6px;
+            }
+            .subtitle {
+                font-size: 11px;
+            }
+            .tab-btn {
+                font-size: 11px;
+                letter-spacing: 1.5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-container">
+        <!-- ЛОГОТИП -->
+        <a href="/" class="logo">IK<span>SEM</span></a>
+        <div class="subtitle">Вход в личный кабинет</div>
+
+        <!-- ВКЛАДКИ -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('login')">Вход</button>
+            <button class="tab-btn" onclick="switchTab('register')">Регистрация</button>
+        </div>
+
+        <!-- ФОРМА ВХОДА -->
+        <form id="login-form" class="form active" onsubmit="login(event)">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="login-email" placeholder="your@email.com" required />
+            </div>
+            <div class="form-group">
+                <label>Пароль</label>
+                <input type="password" id="login-password" placeholder="••••••••" required />
+            </div>
+            <button type="submit" class="submit-btn">Войти</button>
+        </form>
+
+        <!-- ФОРМА РЕГИСТРАЦИИ -->
+        <form id="register-form" class="form" onsubmit="register(event)">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="reg-email" placeholder="your@email.com" required />
+            </div>
+            <div class="form-group">
+                <label>Пароль</label>
+                <input type="password" id="reg-password" placeholder="••••••••" required />
+            </div>
+            <button type="submit" class="submit-btn">Зарегистрироваться</button>
+        </form>
+
+        <!-- СООБЩЕНИЕ -->
+        <div id="message" class="message"></div>
+
+        <!-- ССЫЛКА НА ГЛАВНУЮ -->
+        <a href="/" class="back-link">← Вернуться в магазин</a>
+    </div>
+
+    <script>
+        // ===== ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК =====
+        function switchTab(tab) {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const buttons = document.querySelectorAll('.tab-btn');
+            const msg = document.getElementById('message');
+
+            msg.className = 'message';
+            msg.textContent = '';
+
+            if (tab === 'login') {
+                loginForm.classList.add('active');
+                registerForm.classList.remove('active');
+                buttons[0].classList.add('active');
+                buttons[1].classList.remove('active');
+            } else {
+                loginForm.classList.remove('active');
+                registerForm.classList.add('active');
+                buttons[0].classList.remove('active');
+                buttons[1].classList.add('active');
+            }
+        }
+
+        // ===== ВХОД =====
+        async function login(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showMessage('Вход выполнен! Перенаправление...', 'success');
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 800);
+                } else {
+                    showMessage(data.error || 'Неверный email или пароль', 'error');
+                }
+            } catch (error) {
+                showMessage('Ошибка соединения', 'error');
+            }
+        }
+
+        // ===== РЕГИСТРАЦИЯ =====
+        async function register(event) {
+            event.preventDefault();
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+
+            try {
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showMessage('Регистрация успешна! Перенаправление...', 'success');
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 800);
+                } else {
+                    showMessage(data.error || 'Ошибка регистрации', 'error');
+                }
+            } catch (error) {
+                showMessage('Ошибка соединения', 'error');
+            }
+        }
+
+        // ===== ПОКАЗ СООБЩЕНИЯ =====
+        function showMessage(text, type) {
+            const msg = document.getElementById('message');
+            msg.textContent = text;
+            msg.className = 'message ' + type;
+        }
+    </script>
+</body>
+</html>

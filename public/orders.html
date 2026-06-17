@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Мои заказы — IKSEM</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,200;14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --charcoal: #2B2B2B;
+            --ironclad: #565656;
+            --urban-fog: #848484;
+            --moonlit: #B3B3B3;
+            --cloud-veil: #E0E0E0;
+            --bg: #F5F5F5;
+            --white: #FFFFFF;
+            --font: 'Inter', -apple-system, sans-serif;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--charcoal);
+            font-weight:300;
+            letter-spacing:0.02em;
+            line-height:1.5;
+        }
+        .top-bar {
+            position:fixed; top:0; left:0; right:0; z-index:1000;
+            display:flex; justify-content:space-between; align-items:center;
+            padding:20px 48px;
+            background:rgba(255,255,255,0.92);
+            backdrop-filter:blur(16px);
+            border-bottom:1px solid rgba(43,43,43,0.06);
+        }
+        .logo {
+            font-family:var(--font); font-size:26px; font-weight:200;
+            letter-spacing:6px; text-transform:uppercase; text-decoration:none; color:var(--charcoal);
+        }
+        .logo span { font-weight:700; letter-spacing:0; }
+        .nav-links { display:flex; align-items:center; gap:28px; }
+        .nav-links a {
+            text-decoration:none; color:var(--ironclad); font-size:13px;
+            font-weight:400; letter-spacing:1.5px; text-transform:uppercase;
+            transition:color 0.2s;
+        }
+        .nav-links a:hover { color:var(--charcoal); }
+        .nav-links .cart-link {
+            display:flex; align-items:center; gap:8px;
+            background:var(--charcoal); color:var(--white);
+            padding:8px 20px; border-radius:40px;
+            font-weight:400; font-size:12px; letter-spacing:1.5px; text-transform:uppercase;
+            transition:background 0.2s;
+        }
+        .nav-links .cart-link:hover { background:var(--ironclad); }
+        .cart-badge {
+            background:var(--white); color:var(--charcoal);
+            border-radius:20px; padding:0 10px; font-size:11px; font-weight:600; line-height:20px;
+        }
+        .user-menu { display:flex; align-items:center; gap:14px; font-size:13px; }
+        .user-menu a {
+            text-decoration:none; color:var(--ironclad); letter-spacing:1px;
+            font-weight:400; text-transform:uppercase; font-size:12px;
+        }
+        .user-menu a:hover { color:var(--charcoal); }
+        .user-menu .email { color:var(--urban-fog); font-size:12px; font-weight:300; letter-spacing:0.5px; }
+        .logout-btn {
+            background:none; border:none; color:var(--charcoal); cursor:pointer;
+            font-size:12px; font-weight:400; letter-spacing:1px; text-transform:uppercase;
+            font-family:var(--font);
+        }
+        .logout-btn:hover { opacity:0.5; }
+
+        .container { max-width:1000px; margin:0 auto; padding:100px 48px 60px; }
+        .back-link {
+            display:inline-block; font-size:12px; font-weight:400;
+            letter-spacing:2px; text-transform:uppercase; color:var(--urban-fog);
+            text-decoration:none; margin-bottom:32px; transition:color 0.2s;
+        }
+        .back-link:hover { color:var(--charcoal); }
+        .page-title {
+            font-size:32px; font-weight:200; letter-spacing:6px; text-transform:uppercase;
+            margin-bottom:40px; border-bottom:1px solid var(--cloud-veil); padding-bottom:20px;
+        }
+
+        .order-card {
+            background:var(--white); border-radius:20px; padding:24px 28px;
+            margin-bottom:24px; box-shadow:0 4px 24px rgba(43,43,43,0.04);
+        }
+        .order-header {
+            display:flex; justify-content:space-between; align-items:center;
+            flex-wrap:wrap; gap:12px; padding-bottom:16px;
+            border-bottom:1px solid var(--cloud-veil); margin-bottom:16px;
+        }
+        .order-number { font-size:16px; font-weight:400; letter-spacing:1px; }
+        .order-status {
+            font-size:12px;
+            font-weight:400;
+            letter-spacing:1.5px;
+            text-transform:uppercase;
+            color: var(--urban-fog);
+            padding: 4px 0;
+            border-bottom: 1px solid var(--cloud-veil);
+        }
+
+        .order-grid {
+            display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr));
+            gap:6px 24px; font-size:14px; margin-bottom:12px;
+        }
+        .order-grid .label { color:var(--urban-fog); font-size:11px; letter-spacing:1px; text-transform:uppercase; display:block; }
+
+        .order-items { margin-top:16px; padding-top:16px; border-top:1px solid var(--cloud-veil); }
+        .order-items h4 {
+            font-size:11px; font-weight:400; letter-spacing:1px; text-transform:uppercase;
+            color:var(--urban-fog); margin-bottom:8px;
+        }
+        .order-item {
+            display:flex; justify-content:space-between; padding:6px 0;
+            font-size:14px; border-bottom:1px solid var(--cloud-veil);
+        }
+        .order-item:last-child { border-bottom:none; }
+
+        .order-total { text-align:right; font-size:18px; font-weight:400; margin-top:16px; padding-top:16px; border-top:1px solid var(--cloud-veil); }
+
+        .empty { text-align:center; padding:60px; background:var(--white); border-radius:20px; }
+        .empty h3 { font-size:20px; font-weight:300; letter-spacing:4px; text-transform:uppercase; margin-bottom:8px; }
+        .empty p { color:var(--urban-fog); margin-bottom:24px; }
+        .empty a {
+            display:inline-block; background:var(--charcoal); color:var(--white);
+            padding:12px 32px; border-radius:40px; text-decoration:none;
+            font-size:12px; letter-spacing:2px; text-transform:uppercase;
+            transition:background 0.2s;
+        }
+        .empty a:hover { background:var(--ironclad); }
+
+        @media (max-width:768px) {
+            .top-bar { padding:16px 20px; flex-wrap:wrap; gap:10px; }
+            .container { padding:80px 20px 40px; }
+            .order-grid { grid-template-columns:1fr; }
+            .nav-links a:not(.cart-link) { display:none; }
+            .logo { font-size:20px; letter-spacing:4px; }
+            .page-title { font-size:24px; letter-spacing:4px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-bar">
+        <a href="/" class="logo">IK<span>SEM</span></a>
+        <div class="nav-links">
+            <a href="/orders.html">Заказы</a>
+            <a href="/admin.html" id="admin-link" style="display:none;">Админ</a>
+            <a href="/cart.html" class="cart-link">
+                Корзина <span class="cart-badge" id="cart-count">0</span>
+            </a>
+            <div class="user-menu">
+                <span class="email" id="user-email"></span>
+                <a href="/login.html" id="auth-link">Войти</a>
+                <button class="logout-btn" id="logout-btn" style="display:none;" onclick="logout()">Выйти</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <a href="/" class="back-link">← На главную</a>
+        <h1 class="page-title">Мои заказы</h1>
+        <div id="orders-container"><div class="empty">Загрузка...</div></div>
+    </div>
+
+    <script>
+        async function checkUser() {
+            try {
+                const res = await fetch('/api/me');
+                const data = await res.json();
+                const emailSpan = document.getElementById('user-email');
+                const authLink = document.getElementById('auth-link');
+                const logoutBtn = document.getElementById('logout-btn');
+                const adminLink = document.getElementById('admin-link');
+
+                if (data.user) {
+                    emailSpan.textContent = data.user.email;
+                    authLink.style.display = 'none';
+                    logoutBtn.style.display = 'inline-block';
+                    if (data.user.is_admin && adminLink) adminLink.style.display = 'inline-block';
+                } else {
+                    emailSpan.textContent = 'Гость';
+                    authLink.style.display = 'inline-block';
+                    logoutBtn.style.display = 'none';
+                    if (adminLink) adminLink.style.display = 'none';
+                    window.location.href = '/login.html';
+                }
+            } catch (e) {}
+        }
+
+        async function logout() { await fetch('/api/logout', { method: 'POST' }); window.location.href = '/'; }
+
+        async function loadOrders() {
+            try {
+                const res = await fetch('/api/orders');
+                if (res.status === 401) { window.location.href = '/login.html'; return; }
+                const orders = await res.json();
+                const container = document.getElementById('orders-container');
+
+                if (orders.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty">
+                            <h3>Нет заказов</h3>
+                            <p>Вы ещё ничего не заказали</p>
+                            <a href="/">Перейти в каталог</a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = '';
+                for (const order of orders) {
+                    const itemsRes = await fetch(`/api/orders/${order.id}`);
+                    const items = itemsRes.ok ? (await itemsRes.json()).items || [] : [];
+
+                    const statusMap = {
+                        'новый': 'Новый',
+                        'обработка': 'В обработке',
+                        'отправлен': 'Отправлен',
+                        'доставлен': 'Доставлен',
+                        'отменён': 'Отменён'
+                    };
+
+                    const card = document.createElement('div');
+                    card.className = 'order-card';
+                    card.innerHTML = `
+                        <div class="order-header">
+                            <span class="order-number">Заказ №${escapeHtml(order.order_number)}</span>
+                            <span class="order-status">${statusMap[order.status] || order.status}</span>
+                        </div>
+                        <div class="order-grid">
+                            <div><span class="label">Дата</span>${new Date(order.created_at).toLocaleDateString('ru-RU')}</div>
+                            <div><span class="label">Телефон</span>${escapeHtml(order.phone || '-')}</div>
+                            <div><span class="label">Адрес</span>${escapeHtml(order.address || '-')}</div>
+                            ${order.social ? `<div><span class="label">Соцсети</span>${escapeHtml(order.social)}</div>` : ''}
+                        </div>
+                        ${order.comment ? `<div style="font-size:14px;color:var(--urban-fog);margin-bottom:12px;">${escapeHtml(order.comment)}</div>` : ''}
+                        <div class="order-items">
+                            <h4>Товары</h4>
+                            ${items.length > 0 ? items.map(item => `
+                                <div class="order-item">
+                                    <span>${escapeHtml(item.product_name)}${item.size ? ` (${escapeHtml(item.size)})` : ''}${item.color ? ` (${escapeHtml(item.color)})` : ''}</span>
+                                    <span>× ${item.quantity} — ${(item.price * item.quantity).toLocaleString()} ₽</span>
+                                </div>
+                            `).join('') : '<div style="color:var(--urban-fog);font-size:13px;">Нет товаров</div>'}
+                        </div>
+                        <div class="order-total">Итого: ${order.total_amount.toLocaleString()} ₽</div>
+                    `;
+                    container.appendChild(card);
+                }
+            } catch (e) {
+                document.getElementById('orders-container').innerHTML = '<div class="empty">Ошибка загрузки</div>';
+            }
+        }
+
+        function escapeHtml(str) { return str ? String(str).replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;') : ''; }
+
+        async function updateCartCount() {
+            try {
+                const res = await fetch('/api/cart');
+                if (res.status === 401) { document.getElementById('cart-count').textContent = '0'; return; }
+                const data = await res.json();
+                document.getElementById('cart-count').textContent = data.items ? data.items.reduce((s, i) => s + i.quantity, 0) : 0;
+            } catch (e) {}
+        }
+
+        checkUser();
+        loadOrders();
+        updateCartCount();
+    </script>
+</body>
+</html>
