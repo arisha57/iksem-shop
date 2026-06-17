@@ -174,18 +174,57 @@ app.put('/api/admin/products/:id', requireAdmin, (req, res) => {
 });
 
 app.delete('/api/admin/products/:id', requireAdmin, (req, res) => {
-    db.get("SELECT image_url FROM product_images WHERE product_id = ?", [req.params.id], (err, images) => {
-        if (images) {
+    const id = req.params.id;
+    
+    // Сначала получаем все фото товара
+    db.all("SELECT image_url FROM product_images WHERE product_id = ?", [id], (err, images) => {
+        if (err) {
+            console.error('Ошибка получения фото:', err);
+            return res.status(500).json({ error: err.message });
+        }
+        
+        // Удаляем файлы фото
+        if (images && images.length > 0) {
             images.forEach(img => {
-                const filePath = path.join(__dirname, 'public', img.image_url);
-                if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+                if (img.image_url) {
+                    const filePath = path.join(__dirname, 'public', img.image_url);
+                    try {
+                        if (fs.existsSync(filePath)) {
+                            fs.unlinkSync(filePath);
+                        }
+                    } catch (e) {
+                        console.error('Ошибка удаления файла:', e);
+                    }
+                }
             });
         }
-        db.run("DELETE FROM product_images WHERE product_id = ?", [req.params.id]);
-        db.run("DELETE FROM cart WHERE product_id = ?", [req.params.id]);
-        db.run("DELETE FROM products WHERE id = ?", [req.params.id], function(err) {
-            if (err) return res.status(500).json({ error: err.message });
-            res.json({ success: true, message: 'Товар удалён' });
+        
+        // Удаляем записи из product_images
+        db.run("DELETE FROM product_images WHERE product_id = ?", [id], (err) => {
+            if (err) {
+                console.error('Ошибка удаления фото из БД:', err);
+                return res.status(500).json({ error: err.message });
+            }
+            
+            // Удаляем товар из корзин
+            db.run("DELETE FROM cart WHERE product_id = ?", [id], (err) => {
+                if (err) {
+                    console.error('Ошибка удаления из корзин:', err);
+                    return res.status(500).json({ error: err.message });
+                }
+                
+                // Удаляем сам товар
+                db.run("DELETE FROM products WHERE id = ?", [id], function(err) {
+                    if (err) {
+                        console.error('Ошибка удаления товара:', err);
+                        return res.status(500).json({ error: err.message });
+                    }
+                    if (this.changes === 0) {
+                        return res.status(404).json({ error: 'Товар не найден' });
+                    }
+                    res.json({ success: true, message: 'Товар удалён' });
+                });
+            });
         });
     });
 });
