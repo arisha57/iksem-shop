@@ -1,21 +1,20 @@
 {
   "name": "iksem-shop",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Интернет-магазин одежды IKSEM",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
-    "bcrypt": "^6.0.0",
-    "cookie-parser": "^1.4.7",
-    "express": "^5.2.1",
-    "jsonwebtoken": "^9.0.3",
-    "multer": "^2.2.0",
-    "sqlite3": "^6.0.1"
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "multer": "^1.4.5-lts.1",
+    "sqlite3": "^5.1.4"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }
