@@ -699,20 +699,7 @@ footer {
     margin: 0;
 }
 
-/* ===== АДАПТИВ ФУТЕРА ===== */
-@media (max-width: 768px) {
-    footer {
-        padding: 32px 20px 0;
-    }
-    .footer-grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
-    }
-    .footer-brand p {
-        font-size: 10px;
-        letter-spacing: 2px;
-    }
-}
+
 /* ===== TOAST-УВЕДОМЛЕНИЕ ===== */
 .toast {
     position: fixed;
@@ -827,30 +814,140 @@ footer {
 
         .modal-add-btn:hover { background: var(--ironclad); }
 
-        /* ===== АДАПТИВ ===== */
         @media (max-width: 768px) {
-            .top-bar {
-                padding: 16px 20px;
-                flex-wrap: wrap;
-                gap: 10px;
-            }
-            .hero h1 { font-size: 36px; letter-spacing: 6px; }
-            .hero { padding: 80px 20px 60px; }
-            .filters-section,
-            .catalog,
-            .about,
-            .contacts {
-                padding-left: 20px;
-                padding-right: 20px;
-            }
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-                gap: 16px;
-            }
-            .product-card .image-link img { height: 180px; }
-            .nav-links a:not(.cart-link) { display: none; }
-            .logo { font-size: 20px; letter-spacing: 4px; }
-        }
+    /* Шапка */
+    .top-bar {
+        padding: 12px 16px;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        background: rgba(255,255,255,0.98);
+    }
+
+    .logo {
+        font-size: 18px;
+        letter-spacing: 3px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .nav-links {
+        gap: 12px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-links a:not(.cart-link) {
+        display: inline-block !important;
+        font-size: 11px;
+        letter-spacing: 1px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .nav-links .cart-link {
+        padding: 6px 14px;
+        font-size: 10px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .user-menu {
+        gap: 6px;
+        flex-wrap: nowrap;
+        flex-shrink: 0;
+    }
+
+    .user-menu a {
+        font-size: 10px;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+    }
+
+    .user-menu .email {
+        font-size: 10px;
+        max-width: 80px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .logout-btn {
+        font-size: 10px;
+    }
+
+    /* Герой */
+    .hero {
+        padding: 100px 20px 40px;
+    }
+    .hero h1 {
+        font-size: 36px;
+        letter-spacing: 4px;
+    }
+
+    /* Фильтры */
+    .filters-section {
+        padding: 0 16px;
+    }
+    .filters-panel {
+        padding: 16px;
+        gap: 12px;
+    }
+    .filter-group {
+        min-width: 100%;
+    }
+
+    /* Каталог — 1 товар в строку на телефоне! */
+    .catalog {
+        padding: 0 16px 40px;
+    }
+    .products-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px;
+    }
+
+    .product-card {
+        padding: 16px;
+    }
+    .product-card .image-link img {
+        height: 220px;
+    }
+    .product-card h3 {
+        font-size: 18px;
+    }
+    .product-card .price {
+        font-size: 20px;
+    }
+
+    /* Кнопка сбросить — чёрная */
+    .reset-filters {
+        background: var(--charcoal);
+        color: var(--white);
+        border: none;
+    }
+    .reset-filters:hover {
+        background: var(--ironclad);
+    }
+
+    /* О бренде и контакты */
+    .about,
+    .contacts {
+        padding: 40px 16px;
+    }
+    .about p {
+        font-size: 14px;
+    }
+
+    /* Футер */
+    footer {
+        padding: 32px 16px 16px;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
     </style>
 </head>
 <body>
