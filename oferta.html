@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Публичная оферта — IKSEM</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,200;14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --charcoal: #2B2B2B;
+            --ironclad: #565656;
+            --urban-fog: #848484;
+            --moonlit: #B3B3B3;
+            --cloud-veil: #E0E0E0;
+            --bg: #F5F5F5;
+            --white: #FFFFFF;
+            --font: 'Inter', -apple-system, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--charcoal);
+            line-height: 1.7;
+            font-weight: 300;
+            letter-spacing: 0.02em;
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+        }
+
+        /* ===== ШАПКА СТРАНИЦЫ ===== */
+        .page-header {
+            margin-bottom: 48px;
+            border-bottom: 1px solid var(--cloud-veil);
+            padding-bottom: 24px;
+        }
+
+        .page-header .back-link {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--urban-fog);
+            text-decoration: none;
+            margin-bottom: 12px;
+            transition: color 0.2s;
+        }
+
+        .page-header .back-link:hover {
+            color: var(--charcoal);
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            font-weight: 200;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--charcoal);
+        }
+
+        .page-header .sub {
+            font-size: 13px;
+            color: var(--urban-fog);
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        /* ===== СОДЕРЖАНИЕ ===== */
+        .content h2 {
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--charcoal);
+            margin: 32px 0 12px;
+        }
+
+        .content h2:first-of-type {
+            margin-top: 0;
+        }
+
+        .content p {
+            font-size: 14px;
+            color: var(--ironclad);
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+
+        .content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 16px 0;
+        }
+
+        .content ul li {
+            font-size: 14px;
+            color: var(--ironclad);
+            padding: 6px 0 6px 24px;
+            position: relative;
+            letter-spacing: 0.3px;
+        }
+
+        .content ul li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: var(--moonlit);
+        }
+
+        /* ===== ФУТЕР СТРАНИЦЫ ===== */
+        .page-footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--cloud-veil);
+            text-align: center;
+            font-size: 11px;
+            color: var(--moonlit);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 20px 60px;
+            }
+            .page-header h1 {
+                font-size: 24px;
+                letter-spacing: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- ШАПКА -->
+        <div class="page-header">
+            <a href="/" class="back-link">← На главную</a>
+            <h1>Публичная оферта</h1>
+            <div class="sub">Интернет-магазин IKSEM</div>
+        </div>
+
+        <!-- СОДЕРЖАНИЕ -->
+        <div class="content">
+            <h2>1. Общие положения</h2>
+            <p>
+                Настоящий документ является официальным предложением (публичной офертой)
+                интернет-магазина IKSEM (далее — «Магазин») в лице ИП Буянкин Антон Андреевич
+                (ИНН 420207646845) и адресовано неограниченному кругу физических и юридических лиц
+                (далее — «Покупатель») для заключения договора купли-продажи товаров дистанционным способом.
+            </p>
+
+            <h2>2. Предмет договора</h2>
+            <p>
+                Магазин обязуется передать Покупателю товары в соответствии с оформленным заказом,
+                а Покупатель обязуется принять и оплатить товары на условиях настоящей оферты.
+            </p>
+
+            <h2>3. Порядок оформления заказа</h2>
+            <p>
+                Заказ оформляется Покупателем через корзину на сайте <a href="/" style="color:var(--charcoal);">iksem.shop</a>.
+                После оформления заказа Покупатель получает подтверждение на указанный email.
+            </p>
+            <ul>
+                <li>Покупатель самостоятельно выбирает товары и их количество</li>
+                <li>Покупатель указывает контактные данные для доставки</li>
+                <li>После подтверждения заказа Магазин приступает к сборке и отправке</li>
+            </ul>
+
+            <h2>4. Оплата</h2>
+            <p>
+                Цена товаров указывается на сайте в рублях РФ. Оплата производится онлайн
+                при оформлении заказа. Магазин оставляет за собой право изменять цены
+                на товары в любое время без предварительного уведомления.
+            </p>
+
+            <h2>5. Доставка</h2>
+            <p>
+                Доставка осуществляется по всей России в течение 1–3 рабочих дней после
+                подтверждения заказа. Стоимость доставки рассчитывается индивидуально
+                в зависимости от региона и способа доставки.
+            </p>
+
+            <h2>6. Возврат товара</h2>
+            <p>
+                Покупатель имеет право вернуть товар в течение 14 дней с момента получения.
+                Товар должен быть в оригинальной упаковке, без следов использования,
+                с сохранением товарного вида и потребительских свойств.
+            </p>
+
+            <h2>7. Контакты</h2>
+<p style="display:flex;flex-direction:column;gap:6px;">
+    <span style="display:flex;align-items:center;gap:12px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--charcoal);flex-shrink:0;">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+        </svg>
+        <a href="mailto:gubina_96@list.ru" style="color:var(--charcoal);text-decoration:none;">gubina_96@list.ru</a>
+    </span>
+    <span style="display:flex;align-items:center;gap:12px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--charcoal);flex-shrink:0;">
+            <path d="M21.5 4.5L2.5 10.5L9.5 14.5L13.5 21.5L21.5 4.5Z"/>
+            <path d="M9.5 14.5L16.5 8.5"/>
+        </svg>
+        <a href="https://t.me/iksembrand" target="_blank" style="color:var(--charcoal);text-decoration:none;">t.me/iksembrand</a>
+    </span>
+    <span style="display:flex;align-items:center;gap:12px;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--charcoal);flex-shrink:0;">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+    </svg>
+    <a href="https://instagram.com/iksembrand" target="_blank" style="color:var(--charcoal);text-decoration:none;">@iksembrand</a>
+</span>
+</p>
+        </div>
+
+        <!-- ФУТЕР СТРАНИЦЫ -->
+        <div class="page-footer">
+            © 2025, Weave Atelier — IKSEM
+        </div>
+    </div>
+
+</body>
+</html>
