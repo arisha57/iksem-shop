@@ -977,10 +977,10 @@ footer {
             <span class="cart-badge" id="cart-count">0</span>
         </a>
         <div class="user-menu">
-            <span class="email" id="user-email"></span>
-            <a href="/login.html" id="auth-link">Войти</a>
-            <button class="logout-btn" id="logout-btn" style="display:none;" onclick="logout()">Выйти</button>
-        </div>
+    <span class="email" id="user-email"></span>
+    <a href="/login.html" id="auth-link">Войти</a>
+    <button class="logout-btn" id="logout-btn" style="display:none;" onclick="logout()">Выйти</button>
+</div>
     </div>
 </header>
 
@@ -1401,29 +1401,41 @@ function closeToast() {
 
     // ===== АВТОРИЗАЦИЯ =====
     async function checkUser() {
-        try {
-            const res = await fetch('/api/me');
-            const data = await res.json();
-            const emailSpan = document.getElementById('user-email');
-            const authLink = document.getElementById('auth-link');
-            const logoutBtn = document.getElementById('logout-btn');
-            const adminLink = document.getElementById('admin-link');
+    try {
+        const res = await fetch('/api/me');
+        const data = await res.json();
 
-            if (data.user) {
-                emailSpan.textContent = data.user.email;
-                authLink.style.display = 'none';
-                logoutBtn.style.display = 'inline-block';
-                if (data.user.is_admin && adminLink) adminLink.style.display = 'inline-block';
-                await updateCartCount();
-            } else {
-                emailSpan.textContent = '';
-                authLink.style.display = 'inline-block';
-                logoutBtn.style.display = 'none';
-                if (adminLink) adminLink.style.display = 'none';
-                document.getElementById('cart-count').textContent = '0';
+        const userEmailSpan = document.getElementById('user-email');
+        const authLink = document.getElementById('auth-link');
+        const logoutBtn = document.getElementById('logout-btn');
+        const adminLink = document.getElementById('admin-link');
+
+        if (authLink) authLink.style.display = 'none';
+        if (logoutBtn) logoutBtn.style.display = 'none';
+        if (adminLink) adminLink.style.display = 'none';
+
+        if (data.user) {
+            if (userEmailSpan) userEmailSpan.textContent = data.user.email;
+            if (authLink) authLink.style.display = 'none';
+            if (logoutBtn) logoutBtn.style.display = 'inline-block';
+            if (data.user.is_admin && adminLink) {
+                adminLink.style.display = 'inline-block';
             }
-        } catch (e) { /* ignore */ }
+            if (typeof updateCartCount === 'function') {
+                await updateCartCount();
+            }
+        } else {
+            if (userEmailSpan) userEmailSpan.textContent = '';
+            if (authLink) authLink.style.display = 'inline-block';
+            if (logoutBtn) logoutBtn.style.display = 'none';
+            if (adminLink) adminLink.style.display = 'none';
+            const cartBadge = document.getElementById('cart-count');
+            if (cartBadge) cartBadge.textContent = '0';
+        }
+    } catch (e) {
+        console.error('Ошибка проверки пользователя:', e);
     }
+}
 
     async function logout() {
         await fetch('/api/logout', { method: 'POST' });
